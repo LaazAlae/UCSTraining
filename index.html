@@ -1,0 +1,1875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UCS Employee Training Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="description" content="Professional employee training portal for United Corporate Services - streamlined onboarding and skill development">
+    <meta name="keywords" content="employee training, corporate training, UCS, onboarding, professional development">
+    <meta name="author" content="United Corporate Services">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #fafbfc 0%, #f1f3f4 50%, #e8eaed 100%);
+            background-attachment: fixed;
+            color: #1a1a1a;
+            line-height: 1.65;
+            min-height: 100vh;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header - Now Red with White Text */
+        .header {
+            background: linear-gradient(135deg, #dc3545 0%, #b71c1c 100%);
+            box-shadow: 0 2px 32px rgba(220, 53, 69, 0.15), 0 1px 0 rgba(255, 255, 255, 0.1) inset;
+            padding: 1.25rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(20px) saturate(180%);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header:hover {
+            box-shadow: 0 6px 30px rgba(220, 53, 69, 0.4);
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.75rem;
+            font-weight: 700;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo::before {
+            content: "\f19c";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            font-size: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .breadcrumb {
+            font-size: 0.875rem;
+            color: rgba(255,255,255,0.95);
+            background: rgba(255,255,255,0.15);
+            padding: 0.75rem 1.25rem;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+            font-weight: 500;
+        }
+
+        .breadcrumb:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Navigation Back Button */
+        .nav-back-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            margin-right: 1rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-back-btn:hover {
+            background: rgba(255,255,255,0.3);
+            border-color: rgba(255,255,255,0.5);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Page Transitions with Enhanced Animations */
+        .page {
+            display: none;
+            padding: 2rem 0;
+            min-height: calc(100vh - 80px);
+            animation: slideInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            background: transparent;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes slideInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(50px) scale(0.95);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3); }
+            50% { box-shadow: 0 8px 30px rgba(220, 53, 69, 0.6); }
+            100% { box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3); }
+        }
+
+        /* Welcome Page */
+        .welcome-content {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 0;
+        }
+
+        .main-title {
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, #dc3545 0%, #e57373 50%, #ff7043 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2.5rem;
+            font-weight: 700;
+            animation: slideInUp 0.8s ease-out;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            text-align: center;
+        }
+
+        .intro-text {
+            font-size: 1.15rem;
+            color: #4a5568;
+            margin-bottom: 3rem;
+            text-align: left;
+            animation: fadeIn 1s ease-out 0.3s both;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        .intro-text p {
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .intro-text p:hover {
+            color: #333;
+            transform: translateX(10px);
+        }
+
+        /* Enhanced Buttons */
+        .cta-button {
+            background: linear-gradient(135deg, #dc3545 0%, #b71c1c 50%, #e53e3e 100%);
+            background-size: 200% 200%;
+            color: white;
+            border: none;
+            padding: 1.25rem 3.5rem;
+            font-size: 1.1rem;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            font-weight: 600;
+            text-transform: none;
+            letter-spacing: -0.01em;
+            box-shadow: 0 8px 32px rgba(220, 53, 69, 0.25), 0 1px 0 rgba(255,255,255,0.1) inset;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(220, 53, 69, 0.6);
+            background-position: 100% 0;
+        }
+
+        .cta-button:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        .module-button, .quiz-button {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            margin: 0.5rem;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .module-button::after, .quiz-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s, height 0.4s;
+        }
+
+        .module-button:hover::after, .quiz-button:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        .module-button:hover, .quiz-button:hover {
+            background: linear-gradient(135deg, #c82333, #a71d2a);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(220, 53, 69, 0.5);
+        }
+
+        .back-button {
+            background: linear-gradient(135deg, #6c757d, #5a6268);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+        }
+
+        .back-button:hover {
+            background: linear-gradient(135deg, #5a6268, #495057);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(108, 117, 125, 0.5);
+        }
+
+        .start-quiz-button {
+            background: linear-gradient(135deg, #28a745, #20c997, #17a2b8);
+            background-size: 200% 200%;
+            color: white;
+            border: none;
+            padding: 1.2rem 3rem;
+            font-size: 1.1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            font-weight: 600;
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+            position: relative;
+            overflow: hidden;
+            margin-top: 2rem;
+        }
+
+        .start-quiz-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .start-quiz-button:hover::before {
+            left: 100%;
+        }
+
+        .start-quiz-button:hover {
+            background-position: 100% 0;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(40, 167, 69, 0.6);
+        }
+
+        /* Page Titles */
+        .page-title {
+            text-align: center;
+            font-size: 2.75rem;
+            background: linear-gradient(135deg, #dc3545 0%, #e57373 50%, #ff7043 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 3.5rem;
+            font-weight: 700;
+            animation: fadeIn 0.6s ease-out;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        /* Enhanced Selection Grids */
+        .selection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .selection-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%);
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 4px 32px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.8) inset;
+            border: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(20px) saturate(180%);
+        }
+
+        .selection-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(220, 53, 69, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+            opacity: 0;
+        }
+
+        .selection-card.active:hover::before {
+            opacity: 1;
+            top: -60%;
+            left: -60%;
+        }
+
+        .selection-card.active:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(220, 53, 69, 0.3);
+            border-color: #dc3545;
+            background: linear-gradient(135deg, white, #fff5f5);
+        }
+
+        .selection-card.disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            transform: scale(0.98);
+        }
+
+        .selection-card.disabled:hover {
+            animation: pulse 0.5s ease;
+        }
+
+        .selection-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        .selection-card.active:hover h3 {
+            color: #dc3545;
+            transform: scale(1.05);
+        }
+
+        .selection-card p {
+            color: #666;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .coming-soon {
+            color: #dc3545 !important;
+            font-weight: 600;
+            animation: pulse 2s infinite;
+        }
+
+        /* Training Content */
+        .overview-content, .training-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .overview-text h3 {
+            color: #dc3545;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .overview-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: #555;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .payment-types {
+            background: linear-gradient(135deg, white, #f8f9fa);
+            padding: 2rem;
+            border-radius: 16px;
+            margin: 2rem 0;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-left: 4px solid #dc3545;
+        }
+
+        .payment-types:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+        }
+
+        .payment-types li {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .payment-types li:hover {
+            color: #dc3545;
+            transform: translateX(10px);
+        }
+
+        .module-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        /* Enhanced Training Steps */
+        .check-overview {
+            background: linear-gradient(135deg, white, #f8f9fa);
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-left: 4px solid #28a745;
+            transition: all 0.3s ease;
+        }
+
+        .check-overview:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+        }
+
+        .check-overview h3 {
+            color: #dc3545;
+            margin-bottom: 1rem;
+        }
+
+        .check-overview ul {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+
+        .check-overview li {
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .check-overview li:hover {
+            color: #dc3545;
+            transform: translateX(5px);
+        }
+
+        .steps {
+            margin: 2rem 0;
+        }
+
+        .step {
+            display: flex;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 32px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.8) inset;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-left: 4px solid #dc3545;
+            animation: fadeIn 0.6s ease-out;
+            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(20px) saturate(180%);
+        }
+
+        .step:hover {
+            box-shadow: 0 12px 35px rgba(220, 53, 69, 0.2);
+            transform: translateY(-5px) translateX(5px);
+            border-left-width: 6px;
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-right: 1.5rem;
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .step:hover .step-number {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.5);
+        }
+
+        .step-content h4 {
+            color: #dc3545;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover .step-content h4 {
+            color: #c82333;
+        }
+
+        .step-content p {
+            color: #555;
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover .step-content p {
+            color: #333;
+        }
+
+        .step-content code {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            color: #dc3545;
+            font-weight: 600;
+            border: 1px solid #dee2e6;
+            transition: all 0.3s ease;
+        }
+
+        .step-content code:hover {
+            background: linear-gradient(135deg, #e9ecef, #dee2e6);
+            transform: scale(1.05);
+        }
+
+        .training-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        /* Enhanced Positioning for Quiz Button */
+        .quiz-section {
+            background: linear-gradient(135deg, #f8f9fa, white);
+            padding: 2rem;
+            border-radius: 16px;
+            margin-top: 3rem;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border: 2px solid #28a745;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(40, 167, 69, 0.2);
+        }
+
+        .quiz-section h3 {
+            color: #28a745;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Quiz Styles */
+        .quiz-page {
+            background: transparent;
+        }
+
+        .quiz-container {
+            max-width: 750px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%);
+            border-radius: 24px;
+            padding: 3.5rem;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.08), 0 1px 0 rgba(255,255,255,0.9) inset;
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .question-container {
+            margin-bottom: 2rem;
+        }
+
+        .question {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .question.active {
+            display: block;
+        }
+
+        .question h3 {
+            color: #dc3545;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            text-align: center;
+        }
+
+        .question p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+            text-align: center;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .quiz-options label {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(248,249,250,0.8) 0%, rgba(255,255,255,0.9) 100%);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid rgba(220, 53, 69, 0.1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            font-weight: 500;
+        }
+
+        .quiz-options label::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(220, 53, 69, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .quiz-options label:hover::before {
+            left: 100%;
+        }
+
+        .quiz-options label:hover {
+            background: linear-gradient(135deg, white, #fff5f5);
+            border-color: #dc3545;
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.2);
+        }
+
+        .quiz-options input[type="radio"] {
+            margin-right: 1rem;
+            transform: scale(1.3);
+            accent-color: #dc3545;
+        }
+
+        .quiz-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #e9ecef;
+        }
+
+        .quiz-results {
+            text-align: center;
+            padding: 2rem;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .quiz-results h3 {
+            color: #28a745;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            animation: pulse 1s ease-out;
+        }
+
+        .quiz-results p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #555;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(220, 53, 69, 0.3);
+            border-radius: 50%;
+            border-top-color: #dc3545;
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Page Back Navigation */
+        .page-nav {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        /* Enhanced Visual Effects */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .card-hover-effect:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 16px 48px rgba(220, 53, 69, 0.15);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #dc3545 0%, #e57373 50%, #ff7043 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+                line-height: 1.2;
+            }
+            
+            .page-title {
+                font-size: 2.25rem;
+            }
+            
+            .selection-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .step {
+                flex-direction: column;
+                text-align: center;
+                padding: 2rem;
+            }
+            
+            .step-number {
+                margin: 0 auto 1.5rem auto;
+            }
+            
+            .module-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .training-actions {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .quiz-navigation {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .header .container {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .welcome-content {
+                padding: 2.5rem 0;
+            }
+
+            .quiz-container {
+                padding: 2.5rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .welcome-content {
+                padding: 2rem 0;
+            }
+            
+            .intro-text {
+                font-size: 1rem;
+                line-height: 1.6;
+            }
+            
+            .selection-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .quiz-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .main-title {
+                font-size: 2rem;
+            }
+
+            .page-title {
+                font-size: 1.75rem;
+            }
+
+            .cta-button {
+                padding: 1rem 2.5rem;
+                font-size: 1rem;
+            }
+
+            .step {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">United Corporate Services</h1>
+            <nav class="breadcrumb" id="breadcrumb" style="display: none;">
+                <button class="nav-back-btn" id="backButton" onclick="goBack()" style="display: none;">← Back</button>
+                <span id="breadcrumbText"></span>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Welcome Page -->
+    <section id="welcome" class="page active">
+        <div class="container">
+            <div class="welcome-content">
+                <h1 class="main-title">Welcome to UCS Training Portal</h1>
+                <div class="intro-text">
+                    <p>This comprehensive training platform is designed to onboard new employees at United Corporate Services with the knowledge and skills necessary to excel in their roles.</p>
+                    <p>Our structured, step-by-step approach ensures consistent training delivery while providing an intuitive learning experience that follows established Human-Computer Interaction principles.</p>
+                    <p>Navigate through your specific office location, department, and position to access tailored training materials designed for your role at UCS.</p>
+                </div>
+                <button class="cta-button" onclick="goToOfficeSelection()">
+                    Start Training
+                    <span class="loading" style="display: none;"></span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Office Selection -->
+    <section id="office-selection" class="page">
+        <div class="container">
+            <h2 class="page-title">Select Your Office Location</h2>
+            <div class="selection-grid">
+                <div class="selection-card active card-hover-effect floating-animation" onclick="goToDepartmentSelection()">
+                    <h3><i class="fas fa-building" style="margin-right: 0.5rem; color: #dc3545;"></i>White Plains Office</h3>
+                    <p><i class="fas fa-check-circle" style="margin-right: 0.3rem; color: #28a745;"></i>Training Available</p>
+                </div>
+                <div class="selection-card disabled">
+                    <h3><i class="fas fa-city" style="margin-right: 0.5rem; color: #6c757d;"></i>NYC Office</h3>
+                    <p class="coming-soon"><i class="fas fa-clock" style="margin-right: 0.3rem;"></i>Coming Soon</p>
+                </div>
+                <div class="selection-card disabled">
+                    <h3><i class="fas fa-landmark" style="margin-right: 0.5rem; color: #6c757d;"></i>Delaware Office</h3>
+                    <p class="coming-soon"><i class="fas fa-clock" style="margin-right: 0.3rem;"></i>Coming Soon</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Department Selection -->
+    <section id="department-selection" class="page">
+        <div class="container">
+            <h2 class="page-title">Select Your Department</h2>
+            <div class="selection-grid">
+                <div class="selection-card active" onclick="goToPositionSelection()">
+                    <h3>Accounts Receivable</h3>
+                    <p>Training Available</p>
+                </div>
+                <div class="selection-card disabled">
+                    <h3>Accounts Payable</h3>
+                    <p class="coming-soon">Coming Soon</p>
+                </div>
+                <div class="selection-card disabled">
+                    <h3>Legal</h3>
+                    <p class="coming-soon">Coming Soon</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Position Selection -->
+    <section id="position-selection" class="page">
+        <div class="container">
+            <h2 class="page-title">Select Your Position</h2>
+            <div class="selection-grid">
+                <div class="selection-card active" onclick="goToTrainingOverview()">
+                    <h3>Cash Application Specialist</h3>
+                    <p>Training Available</p>
+                </div>
+                <div class="selection-card disabled">
+                    <h3>Collections Specialist</h3>
+                    <p class="coming-soon">Coming Soon</p>
+                </div>
+                <div class="selection-card disabled">
+                    <h3>AR Manager</h3>
+                    <p class="coming-soon">Coming Soon</p>
+                </div>
+                <div class="selection-card disabled">
+                    <h3>Customer Service Representative</h3>
+                    <p class="coming-soon">Coming Soon</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Training Overview -->
+    <section id="training-overview" class="page">
+        <div class="container">
+            <h2 class="page-title">Cash Application Specialist Training</h2>
+            <div class="overview-content">
+                <div class="overview-text">
+                    <h3>Your Role Overview</h3>
+                    <p>As a Cash Application Specialist at UCS, you will be responsible for processing various types of payments received by the company. UCS receives payments through multiple channels including credit cards, checks, wire transfers, and ACH transactions.</p>
+                    
+                    <p>Your primary focus will be on processing credit card and check payments, which are categorized into two main types:</p>
+                    
+                    <ul class="payment-types">
+                        <li><strong>Renewals (R invoices):</strong> Recurring service payments and contract renewals</li>
+                        <li><strong>Projects (P invoices):</strong> One-time project payments and new service implementations</li>
+                    </ul>
+                    
+                    <p>Your main responsibility is to accurately enter these payments into our system, ensuring proper categorization and timely processing to maintain our cash flow and client relationships.</p>
+                    
+                    <h3>Choose Your Training Module</h3>
+                    <p>Select which payment type you would like to learn about first:</p>
+                </div>
+                
+                <div class="module-buttons">
+                    <button class="module-button" onclick="goToCreditCardTraining()">Credit Card Payments</button>
+                    <button class="module-button" onclick="goToCheckTraining()">Check Payments</button>
+                </div>
+                
+                <div class="quiz-section">
+                    <h3>Ready to Test Your Knowledge?</h3>
+                    <p>Take the overview quiz to ensure you understand your role and responsibilities.</p>
+                    <button class="start-quiz-button" onclick="goToOverviewQuiz()">Start Overview Quiz</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Credit Card Training -->
+    <section id="credit-card-training" class="page">
+        <div class="container">
+            <h2 class="page-title">Credit Card Payment Processing</h2>
+            <div class="training-content">
+                <h3>Step-by-Step Process</h3>
+                <div class="steps">
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <div class="step-content">
+                            <h4>Open Projects</h4>
+                            <p>Launch the UCS project management system from your desktop or browser bookmark.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <div class="step-content">
+                            <h4>Login with Your Credentials</h4>
+                            <p>Enter your assigned username and password to access the system.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <div class="step-content">
+                            <h4>Navigate to Cash Receipts</h4>
+                            <p>In the left sidebar menu, locate and click on "Cash Receipts" to access the payment processing module.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <div class="step-content">
+                            <h4>Create Receipt Batch</h4>
+                            <p>On the main page, click "Create Receipt Batch" to begin processing credit card payments.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        <div class="step-content">
+                            <h4>Enter Batch Name</h4>
+                            <p>In the batch name field, enter: <code>MM/DD/YYYY-CC-DEP</code><br>
+                            Replace the date placeholders with the actual deposit date (e.g., 03/15/2024-CC-DEP)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        <div class="step-content">
+                            <h4>Enter Deposit Date</h4>
+                            <p>Select the deposit date from the calendar picker or enter it manually in MM/DD/YYYY format.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">7</span>
+                        <div class="step-content">
+                            <h4>Copy to Batch Description</h4>
+                            <p>Copy the exact content from the batch name field and paste it into the batch description field.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">8</span>
+                        <div class="step-content">
+                            <h4>Save Batch</h4>
+                            <p>Click the "Save" button to create the batch. The system will generate a unique batch ID.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">9</span>
+                        <div class="step-content">
+                            <h4>Add Receipt</h4>
+                            <p>Click "Add Receipt" to begin entering individual credit card payment details.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">10</span>
+                        <div class="step-content">
+                            <h4>Enter Payment Details</h4>
+                            <p>Complete all required fields including amount, customer information, and invoice references.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="training-actions">
+                    <button class="back-button" onclick="goToTrainingOverview()">Return to Overview</button>
+                </div>
+
+                <div class="quiz-section">
+                    <h3>Test Your Credit Card Processing Knowledge</h3>
+                    <p>Ready to quiz yourself on credit card payment processing?</p>
+                    <button class="start-quiz-button" onclick="goToCreditCardQuiz()">Start Credit Card Quiz</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Check Training -->
+    <section id="check-training" class="page">
+        <div class="container">
+            <h2 class="page-title">Check Payment Processing</h2>
+            <div class="training-content">
+                <div class="check-overview">
+                    <h3>Check Processing Overview</h3>
+                    <p>Check payments are separated into two distinct batch types:</p>
+                    <ul>
+                        <li><strong>R Batches:</strong> For Renewal invoice payments</li>
+                        <li><strong>P Batches:</strong> For Project invoice payments</li>
+                    </ul>
+                    <p><strong>Important Rule:</strong> If a check contains multiple invoices but only 1 Project (P) invoice, the entire check should go into the P batch.</p>
+                </div>
+                
+                <h3>Step-by-Step Process</h3>
+                <div class="steps">
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <div class="step-content">
+                            <h4>Open Projects</h4>
+                            <p>Launch the UCS project management system from your desktop or browser bookmark.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <div class="step-content">
+                            <h4>Login with Your Credentials</h4>
+                            <p>Enter your assigned username and password to access the system.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <div class="step-content">
+                            <h4>Navigate to Cash Receipts</h4>
+                            <p>In the left sidebar menu, locate and click on "Cash Receipts" to access the payment processing module.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <div class="step-content">
+                            <h4>Create Receipt Batch</h4>
+                            <p>On the main page, click "Create Receipt Batch" to begin processing check payments.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        <div class="step-content">
+                            <h4>Enter Batch Name</h4>
+                            <p>Depending on the batch type, enter:<br>
+                            • For Project batches: <code>MM/DD/YYYY-PRJ-DEP</code><br>
+                            • For Renewal batches: <code>MM/DD/YYYY-REP-DEP</code><br>
+                            Replace date placeholders with the actual deposit date.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        <div class="step-content">
+                            <h4>Set Batch Type (For R Batches Only)</h4>
+                            <p>When creating Renewal (R) batches, set the batch type dropdown to "Renewals". Project batches use the default setting.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">7</span>
+                        <div class="step-content">
+                            <h4>Enter Deposit Date</h4>
+                            <p>Select the deposit date from the calendar picker or enter it manually in MM/DD/YYYY format.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">8</span>
+                        <div class="step-content">
+                            <h4>Copy to Batch Description</h4>
+                            <p>Copy the exact content from the batch name field and paste it into the batch description field.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">9</span>
+                        <div class="step-content">
+                            <h4>Save Batch</h4>
+                            <p>Click the "Save" button to create the batch. The system will generate a unique batch ID.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">10</span>
+                        <div class="step-content">
+                            <h4>Add Receipt</h4>
+                            <p>Click "Add Receipt" to begin entering individual check payment details and invoice associations.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="training-actions">
+                    <button class="back-button" onclick="goToTrainingOverview()">Return to Overview</button>
+                </div>
+
+                <div class="quiz-section">
+                    <h3>Test Your Check Processing Knowledge</h3>
+                    <p>Ready to quiz yourself on check payment processing?</p>
+                    <button class="start-quiz-button" onclick="goToCheckQuiz()">Start Check Processing Quiz</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Sections -->
+    <section id="overview-quiz" class="page quiz-page">
+        <div class="container">
+            <h2 class="page-title">Overview Quiz</h2>
+            <div class="quiz-container">
+                <div class="question-container">
+                    <div class="question active" data-question="1">
+                        <h3>Question 1 of 3</h3>
+                        <p>What are the two main types of invoice payments that UCS processes?</p>
+                        <div class="quiz-options">
+                            <label><input type="radio" name="q1" value="a"> Credit Cards and Checks</label>
+                            <label><input type="radio" name="q1" value="b"> Renewals (R) and Projects (P)</label>
+                            <label><input type="radio" name="q1" value="c"> Wire Transfers and ACH</label>
+                        </div>
+                    </div>
+                    
+                    <div class="question" data-question="2">
+                        <h3>Question 2 of 3</h3>
+                        <p>Which payment methods will you primarily work with as a Cash Application Specialist?</p>
+                        <div class="quiz-options">
+                            <label><input type="radio" name="q2" value="a"> Wire transfers and ACH</label>
+                            <label><input type="radio" name="q2" value="b"> Credit cards and checks</label>
+                            <label><input type="radio" name="q2" value="c"> Cash and money orders</label>
+                        </div>
+                    </div>
+                    
+                    <div class="question" data-question="3">
+                        <h3>Question 3 of 3</h3>
+                        <p>What is your main responsibility as a Cash Application Specialist?</p>
+                        <div class="quiz-options">
+                            <label><input type="radio" name="q3" value="a"> Create invoices for customers</label>
+                            <label><input type="radio" name="q3" value="b"> Enter payments into the system accurately</label>
+                            <label><input type="radio" name="q3" value="c"> Collect overdue payments</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quiz-navigation">
+                    <button class="quiz-button" onclick="previousQuestion()" id="prevBtn" style="display: none;">Previous</button>
+                    <button class="quiz-button" onclick="nextQuestion()" id="nextBtn">Next</button>
+                    <button class="quiz-button" onclick="submitQuiz('overview')" id="submitBtn" style="display: none;">Submit Quiz</button>
+                </div>
+                
+                <div class="quiz-results" id="quizResults" style="display: none;">
+                    <h3>Quiz Complete!</h3>
+                    <p id="scoreText"></p>
+                    <button class="back-button" onclick="goToTrainingOverview()">Return to Training</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="credit-card-quiz" class="page quiz-page">
+        <div class="container">
+            <h2 class="page-title">Credit Card Processing Quiz</h2>
+            <div class="quiz-container">
+                <div class="question-container">
+                    <div class="question active" data-question="1">
+                        <h3>Question 1 of 3</h3>
+                        <p>What should you enter in the batch name field for credit card payments?</p>
+                        <div class="quiz-options">
+                            <label><input type="radio" name="cc1" value="a"> MM/DD/YYYY-CC-DEP</label>
+                            <label><input type="radio" name="cc1" value="b"> MM/DD/YYYY-CR-DEP</label>
+                            <label><input type="radio" name="cc1" value="c"> MM/DD/YYYY-CARD-DEP</label>
+                        </div>
+                    </div>
+                    
+                    <div class="question" data-question="2">
+                        <h3>Question 2 of 3</h3>
+                        <p>Where do you find the Cash Receipts function?</p>
+                        <div class="quiz-options">
+                            <label><input type="radio" name="cc2" value="a"> Main menu at the top</label>
+                            <label><input type="radio" name="cc2" value="b"> Left sidebar menu</label>
+                            <label><input type="radio" name="cc2" value="c"> Right sidebar menu</label>
+                        </div>
+                    </div>
+                    
+                    <div class="question" data-question="3">
+                        <h3>Question 3 of 3</h3>
+                        <p>What should you do with the batch name after creating it?</p>
+                        <div class="quiz-options">
+                            <label><input type="radio" name="cc3" value="a"> Leave the description field empty</label>
+                            <label><input type="radio" name="cc3" value="b"> Copy it to the batch description field</label>
+                            <label><input type="radio" name="cc3" value="c"> Modify it before saving</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quiz-navigation">
+                    <button class="quiz-button" onclick="previousCCQuestion()" id="ccPrevBtn" style="display: none;">Previous</button>
+                    <button class="quiz-button" onclick="nextCCQuestion()" id="ccNextBtn">Next</button>
+                    <button class="quiz-button" onclick="submitCCQuiz()" id="ccSubmitBtn" style="display: none;">Submit Quiz</button>
+                </div>
+                
+                <div class="quiz-results" id="ccQuizResults" style="display: none;">
+                    <h3>Quiz Complete!</h3>
+                    <p id="ccScoreText"></p>
+                    <button class="back-button" onclick="goToCreditCardTraining()">Return to Training</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="check-quiz" class="page quiz-page">
+        <div class="container">
+            <h2 class="page-title">Check Processing Quiz</h2>
+            <div class="quiz-container">
+                <div class="question-container">
+                    <div class="question active" data-question="1">
+                        <h3>Question 1 of 3</h3>
+                        <p>If a check contains multiple invoices but only 1 Project invoice, where should it go?</p>
+                        <div class="quiz-options">
+                            <label><input type="radio" name="ch1" value="a"> R batch (Renewals)</label>
+                            <label><input type="radio" name="ch1" value="b"> P batch (Projects)</label>
+                            <label><input type="radio" name="ch1" value="c"> Split between both batches</label>
+                        </div>
+                    </div>
+                    
+                    <div class="question" data-question="2">
+                        <h3>Question 2 of 3</h3>
+                        <p>What batch name format should you use for Renewal check payments?</p>
+                        <div class="quiz-options">
+                            <label><input type="radio" name="ch2" value="a"> MM/DD/YYYY-REN-DEP</label>
+                            <label><input type="radio" name="ch2" value="b"> MM/DD/YYYY-REP-DEP</label>
+                            <label><input type="radio" name="ch2" value="c"> MM/DD/YYYY-R-DEP</label>
+                        </div>
+                    </div>
+                    
+                    <div class="question" data-question="3">
+                        <h3>Question 3 of 3</h3>
+                        <p>What additional step is required when creating R batches?</p>
+                        <div class="quiz-options">
+                            <label><input type="radio" name="ch3" value="a"> Add a special code</label>
+                            <label><input type="radio" name="ch3" value="b"> Set batch type to "Renewals"</label>
+                            <label><input type="radio" name="ch3" value="c"> Use a different date format</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quiz-navigation">
+                    <button class="quiz-button" onclick="previousCheckQuestion()" id="checkPrevBtn" style="display: none;">Previous</button>
+                    <button class="quiz-button" onclick="nextCheckQuestion()" id="checkNextBtn">Next</button>
+                    <button class="quiz-button" onclick="submitCheckQuiz()" id="checkSubmitBtn" style="display: none;">Submit Quiz</button>
+                </div>
+                
+                <div class="quiz-results" id="checkQuizResults" style="display: none;">
+                    <h3>Quiz Complete!</h3>
+                    <p id="checkScoreText"></p>
+                    <button class="back-button" onclick="goToCheckTraining()">Return to Training</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Global variables
+        let currentQuizQuestion = 1;
+        let currentCCQuestion = 1;
+        let currentCheckQuestion = 1;
+        let navigationHistory = ['welcome'];
+
+        // Navigation functions with history tracking
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Show selected page with animation
+            const targetPage = document.getElementById(pageId);
+            targetPage.classList.add('active');
+            
+            // Scroll to top smoothly
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Update breadcrumb and back button
+            updateBreadcrumb(pageId);
+            updateBackButton(pageId);
+        }
+
+        function updateBreadcrumb(pageId) {
+            const breadcrumb = document.getElementById('breadcrumb');
+            const breadcrumbText = document.getElementById('breadcrumbText');
+            
+            let text = '';
+            
+            switch(pageId) {
+                case 'welcome':
+                    breadcrumb.style.display = 'none';
+                    return;
+                case 'office-selection':
+                    text = 'Select Office';
+                    break;
+                case 'department-selection':
+                    text = 'White Plains Office > Select Department';
+                    break;
+                case 'position-selection':
+                    text = 'White Plains Office > Accounts Receivable > Select Position';
+                    break;
+                case 'training-overview':
+                    text = 'White Plains Office > Accounts Receivable > Cash Application Specialist';
+                    break;
+                case 'credit-card-training':
+                    text = 'Training > Credit Card Processing';
+                    break;
+                case 'check-training':
+                    text = 'Training > Check Processing';
+                    break;
+                case 'overview-quiz':
+                    text = 'Quiz > Position Overview';
+                    break;
+                case 'credit-card-quiz':
+                    text = 'Quiz > Credit Card Processing';
+                    break;
+                case 'check-quiz':
+                    text = 'Quiz > Check Processing';
+                    break;
+            }
+            
+            breadcrumbText.textContent = text;
+            breadcrumb.style.display = 'block';
+        }
+
+        function updateBackButton(pageId) {
+            const backButton = document.getElementById('backButton');
+            
+            if (pageId === 'welcome') {
+                backButton.style.display = 'none';
+            } else {
+                backButton.style.display = 'inline-block';
+            }
+        }
+
+        function goBack() {
+            if (navigationHistory.length > 1) {
+                navigationHistory.pop(); // Remove current page
+                const previousPage = navigationHistory[navigationHistory.length - 1];
+                showPage(previousPage);
+            }
+        }
+
+        function navigateToPage(pageId) {
+            navigationHistory.push(pageId);
+            showPage(pageId);
+        }
+
+        // Page navigation functions with history tracking
+        function goToOfficeSelection() {
+            navigateToPage('office-selection');
+        }
+
+        function goToDepartmentSelection() {
+            navigateToPage('department-selection');
+        }
+
+        function goToPositionSelection() {
+            navigateToPage('position-selection');
+        }
+
+        function goToTrainingOverview() {
+            navigateToPage('training-overview');
+        }
+
+        function goToCreditCardTraining() {
+            navigateToPage('credit-card-training');
+        }
+
+        function goToCheckTraining() {
+            navigateToPage('check-training');
+        }
+
+        function goToOverviewQuiz() {
+            resetOverviewQuiz();
+            navigateToPage('overview-quiz');
+        }
+
+        function goToCreditCardQuiz() {
+            resetCreditCardQuiz();
+            navigateToPage('credit-card-quiz');
+        }
+
+        function goToCheckQuiz() {
+            resetCheckQuiz();
+            navigateToPage('check-quiz');
+        }
+
+        // Overview Quiz Functions
+        function resetOverviewQuiz() {
+            currentQuizQuestion = 1;
+            const questions = document.querySelectorAll('#overview-quiz .question');
+            questions.forEach((q, index) => {
+                q.classList.toggle('active', index === 0);
+            });
+            
+            // Reset all radio buttons
+            const radios = document.querySelectorAll('#overview-quiz input[type="radio"]');
+            radios.forEach(radio => radio.checked = false);
+            
+            // Reset navigation buttons
+            document.getElementById('prevBtn').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'inline-block';
+            document.getElementById('submitBtn').style.display = 'none';
+            document.getElementById('quizResults').style.display = 'none';
+        }
+
+        function nextQuestion() {
+            if (currentQuizQuestion < 3) {
+                document.querySelector(`#overview-quiz .question[data-question="${currentQuizQuestion}"]`).classList.remove('active');
+                currentQuizQuestion++;
+                document.querySelector(`#overview-quiz .question[data-question="${currentQuizQuestion}"]`).classList.add('active');
+                
+                // Update navigation buttons
+                document.getElementById('prevBtn').style.display = 'inline-block';
+                
+                if (currentQuizQuestion === 3) {
+                    document.getElementById('nextBtn').style.display = 'none';
+                    document.getElementById('submitBtn').style.display = 'inline-block';
+                }
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuizQuestion > 1) {
+                document.querySelector(`#overview-quiz .question[data-question="${currentQuizQuestion}"]`).classList.remove('active');
+                currentQuizQuestion--;
+                document.querySelector(`#overview-quiz .question[data-question="${currentQuizQuestion}"]`).classList.add('active');
+                
+                // Update navigation buttons
+                if (currentQuizQuestion === 1) {
+                    document.getElementById('prevBtn').style.display = 'none';
+                }
+                
+                document.getElementById('nextBtn').style.display = 'inline-block';
+                document.getElementById('submitBtn').style.display = 'none';
+            }
+        }
+
+        function submitQuiz(quizType) {
+            let score = 0;
+            const totalQuestions = 3;
+            
+            // Correct answers: q1=b, q2=b, q3=b
+            const answers = {
+                q1: document.querySelector('input[name="q1"]:checked')?.value,
+                q2: document.querySelector('input[name="q2"]:checked')?.value,
+                q3: document.querySelector('input[name="q3"]:checked')?.value
+            };
+            
+            const correctAnswers = { q1: 'b', q2: 'b', q3: 'b' };
+            
+            Object.keys(answers).forEach(question => {
+                if (answers[question] === correctAnswers[question]) {
+                    score++;
+                }
+            });
+            
+            const percentage = Math.round((score / totalQuestions) * 100);
+            let message = '';
+            
+            if (percentage >= 80) {
+                message = `Excellent! You scored ${score}/${totalQuestions} (${percentage}%). You're ready to move forward.`;
+            } else if (percentage >= 60) {
+                message = `Good job! You scored ${score}/${totalQuestions} (${percentage}%). Consider reviewing the material once more.`;
+            } else {
+                message = `You scored ${score}/${totalQuestions} (${percentage}%). Please review the training material and try again.`;
+            }
+            
+            document.getElementById('scoreText').textContent = message;
+            document.querySelector('.question-container').style.display = 'none';
+            document.querySelector('.quiz-navigation').style.display = 'none';
+            document.getElementById('quizResults').style.display = 'block';
+        }
+
+        // Credit Card Quiz Functions
+        function resetCreditCardQuiz() {
+            currentCCQuestion = 1;
+            const questions = document.querySelectorAll('#credit-card-quiz .question');
+            questions.forEach((q, index) => {
+                q.classList.toggle('active', index === 0);
+            });
+            
+            // Reset all radio buttons
+            const radios = document.querySelectorAll('#credit-card-quiz input[type="radio"]');
+            radios.forEach(radio => radio.checked = false);
+            
+            // Reset navigation buttons
+            document.getElementById('ccPrevBtn').style.display = 'none';
+            document.getElementById('ccNextBtn').style.display = 'inline-block';
+            document.getElementById('ccSubmitBtn').style.display = 'none';
+            document.getElementById('ccQuizResults').style.display = 'none';
+        }
+
+        function nextCCQuestion() {
+            if (currentCCQuestion < 3) {
+                document.querySelector(`#credit-card-quiz .question[data-question="${currentCCQuestion}"]`).classList.remove('active');
+                currentCCQuestion++;
+                document.querySelector(`#credit-card-quiz .question[data-question="${currentCCQuestion}"]`).classList.add('active');
+                
+                // Update navigation buttons
+                document.getElementById('ccPrevBtn').style.display = 'inline-block';
+                
+                if (currentCCQuestion === 3) {
+                    document.getElementById('ccNextBtn').style.display = 'none';
+                    document.getElementById('ccSubmitBtn').style.display = 'inline-block';
+                }
+            }
+        }
+
+        function previousCCQuestion() {
+            if (currentCCQuestion > 1) {
+                document.querySelector(`#credit-card-quiz .question[data-question="${currentCCQuestion}"]`).classList.remove('active');
+                currentCCQuestion--;
+                document.querySelector(`#credit-card-quiz .question[data-question="${currentCCQuestion}"]`).classList.add('active');
+                
+                // Update navigation buttons
+                if (currentCCQuestion === 1) {
+                    document.getElementById('ccPrevBtn').style.display = 'none';
+                }
+                
+                document.getElementById('ccNextBtn').style.display = 'inline-block';
+                document.getElementById('ccSubmitBtn').style.display = 'none';
+            }
+        }
+
+        function submitCCQuiz() {
+            let score = 0;
+            const totalQuestions = 3;
+            
+            // Correct answers: cc1=a, cc2=b, cc3=b
+            const answers = {
+                cc1: document.querySelector('input[name="cc1"]:checked')?.value,
+                cc2: document.querySelector('input[name="cc2"]:checked')?.value,
+                cc3: document.querySelector('input[name="cc3"]:checked')?.value
+            };
+            
+            const correctAnswers = { cc1: 'a', cc2: 'b', cc3: 'b' };
+            
+            Object.keys(answers).forEach(question => {
+                if (answers[question] === correctAnswers[question]) {
+                    score++;
+                }
+            });
+            
+            const percentage = Math.round((score / totalQuestions) * 100);
+            let message = '';
+            
+            if (percentage >= 80) {
+                message = `Excellent! You scored ${score}/${totalQuestions} (${percentage}%). You've mastered credit card processing.`;
+            } else if (percentage >= 60) {
+                message = `Good job! You scored ${score}/${totalQuestions} (${percentage}%). Consider reviewing the credit card steps once more.`;
+            } else {
+                message = `You scored ${score}/${totalQuestions} (${percentage}%). Please review the credit card training material and try again.`;
+            }
+            
+            document.getElementById('ccScoreText').textContent = message;
+            document.querySelector('#credit-card-quiz .question-container').style.display = 'none';
+            document.querySelector('#credit-card-quiz .quiz-navigation').style.display = 'none';
+            document.getElementById('ccQuizResults').style.display = 'block';
+        }
+
+        // Check Quiz Functions
+        function resetCheckQuiz() {
+            currentCheckQuestion = 1;
+            const questions = document.querySelectorAll('#check-quiz .question');
+            questions.forEach((q, index) => {
+                q.classList.toggle('active', index === 0);
+            });
+            
+            // Reset all radio buttons
+            const radios = document.querySelectorAll('#check-quiz input[type="radio"]');
+            radios.forEach(radio => radio.checked = false);
+            
+            // Reset navigation buttons
+            document.getElementById('checkPrevBtn').style.display = 'none';
+            document.getElementById('checkNextBtn').style.display = 'inline-block';
+            document.getElementById('checkSubmitBtn').style.display = 'none';
+            document.getElementById('checkQuizResults').style.display = 'none';
+        }
+
+        function nextCheckQuestion() {
+            if (currentCheckQuestion < 3) {
+                document.querySelector(`#check-quiz .question[data-question="${currentCheckQuestion}"]`).classList.remove('active');
+                currentCheckQuestion++;
+                document.querySelector(`#check-quiz .question[data-question="${currentCheckQuestion}"]`).classList.add('active');
+                
+                // Update navigation buttons
+                document.getElementById('checkPrevBtn').style.display = 'inline-block';
+                
+                if (currentCheckQuestion === 3) {
+                    document.getElementById('checkNextBtn').style.display = 'none';
+                    document.getElementById('checkSubmitBtn').style.display = 'inline-block';
+                }
+            }
+        }
+
+        function previousCheckQuestion() {
+            if (currentCheckQuestion > 1) {
+                document.querySelector(`#check-quiz .question[data-question="${currentCheckQuestion}"]`).classList.remove('active');
+                currentCheckQuestion--;
+                document.querySelector(`#check-quiz .question[data-question="${currentCheckQuestion}"]`).classList.add('active');
+                
+                // Update navigation buttons
+                if (currentCheckQuestion === 1) {
+                    document.getElementById('checkPrevBtn').style.display = 'none';
+                }
+                
+                document.getElementById('checkNextBtn').style.display = 'inline-block';
+                document.getElementById('checkSubmitBtn').style.display = 'none';
+            }
+        }
+
+        function submitCheckQuiz() {
+            let score = 0;
+            const totalQuestions = 3;
+            
+            // Correct answers: ch1=b, ch2=b, ch3=b
+            const answers = {
+                ch1: document.querySelector('input[name="ch1"]:checked')?.value,
+                ch2: document.querySelector('input[name="ch2"]:checked')?.value,
+                ch3: document.querySelector('input[name="ch3"]:checked')?.value
+            };
+            
+            const correctAnswers = { ch1: 'b', ch2: 'b', ch3: 'b' };
+            
+            Object.keys(answers).forEach(question => {
+                if (answers[question] === correctAnswers[question]) {
+                    score++;
+                }
+            });
+            
+            const percentage = Math.round((score / totalQuestions) * 100);
+            let message = '';
+            
+            if (percentage >= 80) {
+                message = `Excellent! You scored ${score}/${totalQuestions} (${percentage}%). You've mastered check processing.`;
+            } else if (percentage >= 60) {
+                message = `Good job! You scored ${score}/${totalQuestions} (${percentage}%). Consider reviewing the check processing steps once more.`;
+            } else {
+                message = `You scored ${score}/${totalQuestions} (${percentage}%). Please review the check training material and try again.`;
+            }
+            
+            document.getElementById('checkScoreText').textContent = message;
+            document.querySelector('#check-quiz .question-container').style.display = 'none';
+            document.querySelector('#check-quiz .quiz-navigation').style.display = 'none';
+            document.getElementById('checkQuizResults').style.display = 'block';
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show welcome page by default
+            showPage('welcome');
+            
+            // Add smooth scrolling to all quiz navigation
+            const quizButtons = document.querySelectorAll('.quiz-button');
+            quizButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+            
+            // Add click handlers for disabled cards to show coming soon message
+            const disabledCards = document.querySelectorAll('.selection-card.disabled');
+            disabledCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const comingSoonText = card.querySelector('.coming-soon');
+                    if (comingSoonText) {
+                        comingSoonText.style.animation = 'pulse 0.5s';
+                        setTimeout(() => {
+                            comingSoonText.style.animation = '';
+                        }, 500);
+                    }
+                });
+            });
+
+            // Add loading effects for buttons
+            const ctaButtons = document.querySelectorAll('.cta-button, .module-button, .start-quiz-button');
+            ctaButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const loading = button.querySelector('.loading');
+                    if (loading) {
+                        loading.style.display = 'inline-block';
+                        setTimeout(() => {
+                            loading.style.display = 'none';
+                        }, 800);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
