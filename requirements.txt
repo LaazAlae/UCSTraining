@@ -1,2 +1,0 @@
-# Static site - no Python dependencies required
-# This file ensures Railway recognizes it as a Python project
